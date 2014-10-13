@@ -7,10 +7,10 @@
 //
 
 import Foundation
-import UIKit
+import UIKit     //  importing an UIKit into Tiger.swift da bi dobili autocomplete za UIImage(named: "")
 
-struct Tiger {
-    var name = ""
+struct Tiger {          // creating a TIGER STRUCT
+    var name = ""       // creating default propertie values
     var age = 0
     var breed = ""
     var image = UIImage(named: "")

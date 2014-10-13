@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var breedLabel: UILabel!
     
+    var myTigers:[Tiger] = []    // creating empty myTigers Array (INICIALIZED and accessible in all functions, not just in viewDidLoad)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,10 +28,12 @@ class ViewController: UIViewController {
         myTiger.breed = "Bengal Tiger"
         myTiger.image = UIImage(named: "BengalTiger.jpg")
         
+        myTigers.append(myTiger) // appending instance myTiger to myTigers Array
+        
         println("My tiger is a \(myTiger.age) year old \(myTiger.breed), named \(myTiger.name).")
         
-        myImageView.image = myTiger.image
-        nameLabel.text = myTiger.name
+        myImageView.image = myTiger.image    //  4 IBOutlets to display in user interface
+        nameLabel.text = myTiger.name        //  with updated data from myTiger instance
         ageLabel.text = "\(myTiger.age)"
         breedLabel.text = myTiger.breed
         
@@ -51,6 +55,9 @@ class ViewController: UIViewController {
         forthTiger.breed = "Siberian Tiger"
         forthTiger.image = UIImage(named: "SiberianTiger.jpg")
         
+        myTigers += [secondTiger, thirdTiger, forthTiger] // adding the rest of tigers to myTigers Array
+        
+        
         
         
     }
@@ -61,7 +68,24 @@ class ViewController: UIViewController {
     }
 
     @IBAction func nextBarButtonPressed(sender: UIBarButtonItem) {
+        let randomIndex = Int(arc4random_uniform(UInt32(myTigers.count)))
+        let tiger = myTigers[randomIndex]
+        
+//        myImageView.image = tiger.image
+//        nameLabel.text = tiger.name
+//        ageLabel.text = "\(tiger.age)"
+//        breedLabel.text = tiger.breed
+        
+        UIView.transitionWithView(self.view, duration: 2, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+            
+                    self.myImageView.image = tiger.image
+                    self.nameLabel.text = tiger.name
+                    self.ageLabel.text = "\(tiger.age)"
+                    self.breedLabel.text = tiger.breed
+            
+            }, completion: {
+                (finished:Bool) -> () in
+        })
     }
-
 }
 
