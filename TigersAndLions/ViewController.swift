@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     var myTigers:[Tiger] = []    // creating empty myTigers Array (INICIALIZED and accessible in all functions, not just in viewDidLoad)
     
+    var currentIndex = 0    // creating variable with initial value of 0 which is great cos our first instance is actually on index 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +69,17 @@ class ViewController: UIViewController {
     }
 
     @IBAction func nextBarButtonPressed(sender: UIBarButtonItem) {
-        let randomIndex = Int(arc4random_uniform(UInt32(myTigers.count)))
+        
+        var randomIndex: Int   // definiram varijablu randomIndex kao INTEGER, bez početne vrijednosti
+        
+        do {
+        
+            randomIndex = Int(arc4random_uniform(UInt32(myTigers.count)))   // DO randomIndex WHILE
+        
+        } while currentIndex == randomIndex                                 // (sve dok je currentIndex jednak randomIndexu)
+        
+        currentIndex = randomIndex                                          // kad uvijet postane neistinit, tj. dobijemo index drugačiji od prijašnjeg...
+                                                                            //... currentIndex poprima vrijednost randomIndexa i tako nema šanse da se index ponovi
         let tiger = myTigers[randomIndex]
         
 //        myImageView.image = tiger.image
